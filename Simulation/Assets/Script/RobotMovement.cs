@@ -6,7 +6,7 @@ public class RobotMovement : MonoBehaviour
 {
     public CharacterController controller;
     public float Speed = 3.0f;
-    public float RotateSpeed = 3.0f;
+    public float RotateSpeed = 1.0f;
     private float curSpeed = 0f;
     
     private void Start()
