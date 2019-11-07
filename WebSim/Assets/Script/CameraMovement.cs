@@ -1,13 +1,16 @@
-﻿using UnityEngine;
+﻿   using UnityEngine;
 
 public class CameraMovement : MonoBehaviour
 {
-    public float mouseSensitivity = 150;
-    private float xAxisClamp = 0;
+    private float speedH = 2.0f;
+    private float speedV = 2.0f;
+    private float yaw = 0.0f;
+    private float pitch = 0.0f;
 
     private void Awake()
     {
         Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
     private void Update()
@@ -17,32 +20,9 @@ public class CameraMovement : MonoBehaviour
 
     private void CameraRotation()
     {
-        float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
-        float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
+        yaw += Input.GetAxis("Mouse X") * speedH * Time.deltaTime;
+        pitch -= Input.GetAxis("Mouse Y") * speedV * Time.deltaTime;
 
-        xAxisClamp += mouseY;
-
-        if (xAxisClamp > 90)
-        {
-            xAxisClamp = 90;
-            mouseY = 0.0f;
-            ClampXAxisRotationToValue(270f);
-        } else if (xAxisClamp < -90f)
-        {
-            xAxisClamp = -90f;
-            mouseY = 0.0f;
-            ClampXAxisRotationToValue(90.0f);
-        }
-
-        transform.Rotate(Vector3.left * mouseY);
-        transform.Rotate(Vector3.up * mouseX);
+        transform.eulerAngles = new Vector3(pitch, yaw, 0.0f); 
     }
-
-    private void ClampXAxisRotationToValue(float val)
-    {
-        Vector3 eulerRotation = transform.eulerAngles;
-        eulerRotation.x = val;
-        transform.eulerAngles = eulerRotation;
-    }
-
 }

@@ -4,8 +4,10 @@ using UnityEngine.UI;
 public class Score : MonoBehaviour
 { 
     public Text scoreText;
-    void Update()
+
+    private void Update()
     {
         scoreText.text = "Score " + DistanceChecker.points.ToString();
     }
 }
+ 
